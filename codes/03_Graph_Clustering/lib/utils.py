@@ -589,9 +589,9 @@ def compute_pca(X,nb_pca):
 def compute_kernel_kmeans_EM(nc,Ker,Theta,nb_trials):
 
     start = time.time()
-    n = Ker.shape[0]
+    n = Ker.shape[0] # Number of Datapoints
     Theta = np.diag(np.ones(n)) # Equal weight for each data
-    Ones = np.ones((1,n))
+    Ones = np.ones((1,n)) # 1_n = column of n 1's
     En_kmeans = 1e10; # Init energy value
 
     # Run K-Means "nb_trials" times and keep the solution that best minimizes 
@@ -601,7 +601,7 @@ def compute_kernel_kmeans_EM(nc,Ker,Theta,nb_trials):
         # Initialization
         C = np.random.randint(nc,size=n) # random initialization
         Cold = np.ones([n])
-        diffC = np.linalg.norm(C-Cold)/np.linalg.norm(Cold)
+        diffC = np.linalg.norm(C-Cold)/np.linalg.norm(Cold) # Calculate the distance between old clusters and new clusters
     
         # Loop
         k = 0
@@ -610,13 +610,15 @@ def compute_kernel_kmeans_EM(nc,Ker,Theta,nb_trials):
             # Update iteration
             k += 1
             #print(k)
-    
-            # Distance Matrix D
-            row = np.array(range(n))
-            col = C
-            data = np.ones(n)
+
+            # Create Indicator Function, F
+            row = np.array(range(n)) # Create Row Indices of size N
+            col = C # Column Indices of size K
+            data = np.ones(n) # Create data points for F[row, col]
             F = scipy.sparse.csr_matrix((data, (row, col)), shape=(n, nc)).todense()
+            # Weight Vector, Theta
             O = np.diag( np.array( 1./ (Ones.dot(Theta).dot(F) + 1e-6) ).squeeze() )
+            # Distance Matrix D
             T = Ker.dot(Theta.dot(F.dot(O)))
             D = - 2* T + np.repeat( np.diag(O.dot((F.T).dot(Theta.dot(T))))[None,:] ,n,axis=0)
     
@@ -628,7 +630,7 @@ def compute_kernel_kmeans_EM(nc,Ker,Theta,nb_trials):
             Cold = C
         
         # K-Means energy
-        En = np.multiply( (np.repeat(np.diag(Ker)[:,None],nc,axis=1) + D) , F)
+        En = np.multiply( (np.repeat(np.diag(Ker)[:,None],nc,axis=1) + D) , F) # diag(K)1^T _k. This is a constant.
         En = np.sum(En)/n
 
 
