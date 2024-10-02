@@ -80,17 +80,17 @@ def reindex_W_with_classes(W,C):
 def graph_laplacian(W, normalized=True):
     
     # Degree vector
-    d = W.sum(axis=0)
+    d = W.sum(axis=0) # Get d 
 
     # Laplacian matrix
     if not normalized:
-        D = scipy.sparse.diags(d.A.squeeze(), 0)
+        D = scipy.sparse.diags(d.A.squeeze(), 0) # Create Degree Matrix, D.
         L = D - W
     else:
-        d += np.spacing(np.array(0, W.dtype)) # d += epsilon
-        d = 1.0 / np.sqrt(d)
-        D = scipy.sparse.diags(d.A.squeeze(), 0)
-        I = scipy.sparse.identity(d.size, dtype=W.dtype)
+        d += np.spacing(np.array(0, W.dtype)) # d += epsilon, np.spacing(np.array(0, W.dtype)) is the same as epsilon
+        d = 1.0 / np.sqrt(d) # D^(-1/2)
+        D = scipy.sparse.diags(d.A.squeeze(), 0) # Create Degree Matrix, D^(-1/2).
+        I = scipy.sparse.identity(d.size, dtype=W.dtype) # Create I_n
         L = I - D * W * D
     return L
 
