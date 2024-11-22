@@ -28,8 +28,7 @@ Select the notebook 'file.ipynb' and open it with Google Colab using Control Cli
 
 ```sh
    # Conda installation
-   curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh -J -L -k # Linux
-   curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh -J -L -k # OSX
+   curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o miniconda.sh -J -L -k # OSX M
    chmod +x miniconda.sh
    ./miniconda.sh
    source ~/.bashrc
@@ -55,8 +54,7 @@ Select the notebook 'file.ipynb' and open it with Google Colab using Control Cli
 
 ```sh
    # Conda installation
-   curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh -J -L -k # Linux
-   curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh -J -L -k # OSX
+   curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh -J -L -k # OSX Intel
    chmod +x miniconda.sh
    ./miniconda.sh
    source ~/.bashrc
@@ -83,7 +81,6 @@ Select the notebook 'file.ipynb' and open it with Google Colab using Control Cli
 ```sh
    # Conda installation
    curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh -J -L -k # Linux
-   curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh -J -L -k # OSX
    chmod +x miniconda.sh
    ./miniconda.sh
    source ~/.bashrc
@@ -123,6 +120,7 @@ Select the notebook 'file.ipynb' and open it with Google Colab using Control Cli
    # Install python libraries
    conda env create -f environment_win64.yml
    conda activate gnn_course
+   pip install --upgrade --force-reinstall scikit-learn==1.3.2 
 
    # Run the notebooks in Chrome
    jupyter notebook
